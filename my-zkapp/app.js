@@ -9,11 +9,18 @@ const torus = new Torus();
 async function initializeTorus() {
     await torus.init({
         enableLogging: true,
-        network: {
-            host: 'mainnet', // Use the Torus mainnet
-        },
+        network: { host: 'mainnet' }, // Choose the Torus network
     });
-    console.log('Torus initialized');
+
+    // Trigger Torus authentication
+    const userInfo = await torus.login(); // This will open a login popup
+    console.log('User Info:', userInfo);
+
+    // Use userInfo to authenticate and generate a token
+    const token = userInfo.token;
+    console.log('Authentication Token:', token);
+
+    return token;
 }
 
 initializeTorus(); // Initialize Torus when the app starts
