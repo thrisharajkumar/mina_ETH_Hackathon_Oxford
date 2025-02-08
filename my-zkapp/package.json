@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@o1labs/client-sdk": "^1.0.1"
+  }
+}
