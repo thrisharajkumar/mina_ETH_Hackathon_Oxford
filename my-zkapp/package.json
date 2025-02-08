@@ -1,5 +1,13 @@
 {
-  "dependencies": {
-    "@o1labs/client-sdk": "^1.0.1"
-  }
+  "name": "my-zkapp",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {}
 }

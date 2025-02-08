@@ -1,20 +1,39 @@
-const { SmartContract, Field, Bool, Circuit } = require('snarkyjs');
+import { SmartContract, Field, Bool, CircuitValue, Poseidon } from 'snarkyjs';
 
-class DataOwnershipContract extends SmartContract {
-    state = {
-        dataHash: Field,
-        owner: Field,
-    };
-
-    // Function to generate zkProof of ownership
-    generateProof(dataHash) {
-        // Implement logic for generating zkProof
+// Define the proof class
+class OwnershipProof extends CircuitValue {
+    constructor(dataHash, owner) {
+        super();
+        this.dataHash = dataHash;
+        this.owner = owner;
     }
 
-    // Function to verify ownership
-    verifyOwnership(proof) {
-        // Implement logic for verifying zkProof
+    hash() {
+        return Poseidon.hash([this.dataHash, this.owner]);
     }
 }
 
-module.exports = DataOwnershipContract;  // Export the contract for use in other files
+class DataOwnershipContract extends SmartContract {
+    // Initialize state variables with valid Field values
+    dataHash = Field(0); // Default value for dataHash
+    owner = Field(0);    // Default value for owner
+
+    init(dataHash, owner) {
+        this.dataHash = dataHash;
+        this.owner = owner;
+    }
+
+    generateProof(dataHash, owner) {
+        const proof = new OwnershipProof(dataHash, owner);
+        console.log('Generated Proof Hash:', proof.hash().toString());
+        return proof;
+    }
+
+    verifyProof(proof) {
+        const isValid = proof.hash().equals(Poseidon.hash([this.dataHash, this.owner]));
+        console.log('Proof Verified:', isValid.toBoolean());
+        return isValid;
+    }
+}
+
+export default DataOwnershipContract;
