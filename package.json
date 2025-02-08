@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  
   "scripts": {
     "dev": "next dev",
     "build": "next build --no-lint",
@@ -13,12 +12,13 @@
     "deploy": "next build --no-lint && type nul > out\\.nojekyll && node ./ghp-postbuild && git add -f out && git commit -m \"Deploy gh-pages\" && cd .. && git subtree push --prefix ui/out origin gh-pages"
   },
   "dependencies": {
+    "@toruslabs/torus.js": "^15.1.1",
     "coi-serviceworker": "^0.1.7",
     "crypto-js": "^4.2.0",
-    "next": "^14.2.23",
+    "next": "^15.1.6",
     "o1js": "^1.*",
-    "react": "^18",
-    "react-dom": "^18",
+    "reach": "^1.0.1",
+    "react-dom": "^19.0.0",
     "snarkyjs": "^0.12.1"
   },
   "devDependencies": {
